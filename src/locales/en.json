@@ -1,0 +1,40 @@
+{
+  "welcome": "Welcome to React Boilerplate",
+  "dashboard": "Dashboard",
+  "settings": "Settings",
+  "login": "Login",
+  "logout": "Logout",
+  "profile": "Profile",
+  "theme": "Theme",
+  "language": "Language",
+  "light": "Light",
+  "dark": "Dark",
+  "email": "Email",
+  "password": "Password",
+  "signIn": "Sign In",
+  "stats": "Statistics",
+  "users": "Users",
+  "revenue": "Revenue",
+  "active": "Active",
+  "landing": {
+    "heroTitle": "Build Faster with",
+    "heroHighlight": "Lakhveer Singh",
+    "heroDescription": "A production-ready foundation featuring Redux Toolkit, Tailwind CSS, Multi-language support, and Authentication flows.",
+    "getStarted": "Get Started",
+    "viewOnGitHub": "View on GitHub",
+    "features": {
+      "scalableArchitecture": {
+        "title": "Scalable Architecture",
+        "description": "Organized folder structure with Redux slices, custom hooks, and modular components."
+      },
+      "performanceFirst": {
+        "title": "Performance First",
+        "description": "Built with Vite for lightning-fast HMR and optimized production builds."
+      },
+      "authenticationReady": {
+        "title": "Authentication Ready",
+        "description": "Pre-configured protected routes and auth state management with Redux."
+      }
+    }
+  }
+}
