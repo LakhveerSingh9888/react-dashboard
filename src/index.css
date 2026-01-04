@@ -1,12 +1,82 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  /* Primary Colors */
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-200: #bae6fd;
+  --color-primary-300: #7dd3fc;
+  --color-primary-400: #38bdf8;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-700: #0369a1;
+  --color-primary-800: #075985;
+  --color-primary-900: #0c4a6e;
+  --color-primary-950: #082f49;
+
+  /* Card Colors */
+  --color-card-bg: #ffffff;
+  --color-card-border: #e5e7eb;
+  --color-card-text: #111827;
+  --color-card-heading: #1f2937;
+  --color-card-shadow: rgba(0, 0, 0, 0.1);
+
+  /* Success Colors */
+  --color-success-50: #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+
+  /* Error Colors */
+  --color-error-50: #fef2f2;
+  --color-error-100: #fee2e2;
+  --color-error-500: #ef4444;
+  --color-error-600: #dc2626;
+  --color-error-700: #b91c1c;
+
+  /* Warning Colors */
+  --color-warning-50: #fffbeb;
+  --color-warning-100: #fef3c7;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+  --color-warning-700: #b45309;
+
+  /* Info Colors */
+  --color-info-50: #eff6ff;
+  --color-info-100: #dbeafe;
+  --color-info-500: #3b82f6;
+  --color-info-600: #2563eb;
+  --color-info-700: #1d4ed8;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-card: 0.75rem;
+
+  /* Spacing for Cards */
+  --spacing-card: 1.5rem;
+  --spacing-card-sm: 1rem;
+  --spacing-card-lg: 2rem;
+}
 
 @layer base {
 
     /* Base body styles */
     body {
         @apply bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-200;
+    }
+
+    /* Dark Mode Card Colors */
+    .dark {
+        --color-card-bg: #1f2937;
+        --color-card-border: #374151;
+        --color-card-text: #f9fafb;
+        --color-card-heading: #ffffff;
+        --color-card-shadow: rgba(0, 0, 0, 0.3);
     }
 
     /* CSS Custom Properties for Color Themes */
@@ -77,6 +147,22 @@
 }
 
 @layer utilities {
+    /* Card Utilities */
+    .card {
+        @apply bg-card-bg border border-card-border text-card-text rounded-card p-card shadow-sm;
+    }
+
+    .card-sm {
+        @apply bg-card-bg border border-card-border text-card-text rounded-card p-card-sm shadow-sm;
+    }
+
+    .card-lg {
+        @apply bg-card-bg border border-card-border text-card-text rounded-card p-card-lg shadow-md;
+    }
+
+    .card-heading {
+        @apply text-card-heading font-semibold;
+    }
 
     /* Dynamic theme color utilities */
     .bg-primary-50 {

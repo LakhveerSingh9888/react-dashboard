@@ -31,7 +31,7 @@ export default defineConfig({
 
   build: {
     sourcemap: false,
-    target: 'es2015',
+    target: 'baseline-widely-available', // Vite 7 default - supports browsers for 30+ months
     minify: 'esbuild', // Fastest minifier, built-in
     cssMinify: true,
     cssCodeSplit: true,
@@ -79,8 +79,6 @@ export default defineConfig({
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
-          const info = assetInfo.name.split('.');
-          const ext = info[info.length - 1];
           if (/\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/i.test(assetInfo.name)) {
             return 'assets/media/[name]-[hash].[ext]';
           }
