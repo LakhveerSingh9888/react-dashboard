@@ -18,7 +18,7 @@ const Checkbox = ({
             rules={rules}
             render={({ field, fieldState }) => (
                 <div className={`flex flex-col gap-1.5 ${className}`}>
-                    <label className="flex items-center gap-2 cursor-pointer">
+                    <label htmlFor={name} className="flex items-center gap-2 cursor-pointer">
                         <input
                             type="checkbox"
                             id={name}

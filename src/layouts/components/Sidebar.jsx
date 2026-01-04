@@ -497,11 +497,17 @@ const NavItem = ({ item, level = 0, parentId = '', expandedItems, toggleExpanded
     );
 };
 
-export const Sidebar = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
-    const [menuState, setMenuState] = useState('full'); // 'full' | 'collapsed' | 'hidden'
-    const [isHovered, setIsHovered] = useState(false);
+export const Sidebar = ({ 
+    isMobileMenuOpen, 
+    setIsMobileMenuOpen,
+    menuState,
+    setMenuState,
+    isHovered,
+    setIsHovered,
+    isMobile,
+    setIsMobile
+}) => {
     const [previousDesktopState, setPreviousDesktopState] = useState('full');
-    const [isMobile, setIsMobile] = useState(false);
     const [expandedItems, setExpandedItems] = useState(new Set());
 
     // Handle responsive behavior
@@ -533,28 +539,6 @@ export const Sidebar = ({ isMobileMenuOpen, setIsMobileMenuOpen }) => {
         return () => window.removeEventListener('resize', handleResize);
     }, [menuState, previousDesktopState]);
 
-    // Export functions to window for TopNav to access
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            window.toggleMenuState = () => {
-                setMenuState((prev) => {
-                    switch (prev) {
-                        case 'full':
-                            return 'collapsed';
-                        case 'collapsed':
-                            return 'hidden';
-                        case 'hidden':
-                            return 'full';
-                        default:
-                            return 'full';
-                    }
-                });
-            };
-            window.menuState = menuState;
-            window.isHovered = isHovered;
-            window.isMobile = isMobile;
-        }
-    }, [menuState, isHovered, isMobile]);
 
     const handleNavigation = () => {
         if (isMobile) {

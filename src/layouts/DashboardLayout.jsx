@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Sidebar } from './components/Sidebar';
@@ -10,31 +10,6 @@ export const DashboardLayout = () => {
     const [menuState, setMenuState] = useState('full');
     const [isHovered, setIsHovered] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
-
-    // Listen for menu state changes from Sidebar
-    useEffect(() => {
-        const checkMenuState = () => {
-            if (typeof window !== 'undefined') {
-                if (window.menuState) {
-                    setMenuState(window.menuState);
-                }
-                if (window.isHovered !== undefined) {
-                    setIsHovered(window.isHovered);
-                }
-                if (window.isMobile !== undefined) {
-                    setIsMobile(window.isMobile);
-                }
-            }
-        };
-
-        // Check initial state
-        checkMenuState();
-
-        // Set up interval to check for changes
-        const interval = setInterval(checkMenuState, 50);
-
-        return () => clearInterval(interval);
-    }, []);
 
     // Calculate margin based on menu state and hover - only for desktop
     const getMarginLeft = () => {
@@ -54,11 +29,20 @@ export const DashboardLayout = () => {
         return '16rem'; // 256px - full width
     };
 
-    const handleMenuToggle = () => {
-        if (typeof window !== 'undefined' && window.toggleMenuState) {
-            window.toggleMenuState();
-        }
-    };
+    const handleMenuToggle = useCallback(() => {
+        setMenuState((prev) => {
+            switch (prev) {
+                case 'full':
+                    return 'collapsed';
+                case 'collapsed':
+                    return 'hidden';
+                case 'hidden':
+                    return 'full';
+                default:
+                    return 'full';
+            }
+        });
+    }, []);
 
     const handleMobileMenuToggle = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -66,7 +50,16 @@ export const DashboardLayout = () => {
 
     return (
         <div className={`flex h-screen ${theme === 'dark' ? 'dark' : ''}`}>
-            <Sidebar isMobileMenuOpen={isMobileMenuOpen} setIsMobileMenuOpen={setIsMobileMenuOpen} />
+            <Sidebar 
+                isMobileMenuOpen={isMobileMenuOpen} 
+                setIsMobileMenuOpen={setIsMobileMenuOpen}
+                menuState={menuState}
+                setMenuState={setMenuState}
+                isHovered={isHovered}
+                setIsHovered={setIsHovered}
+                isMobile={isMobile}
+                setIsMobile={setIsMobile}
+            />
             <div
                 className="w-full flex flex-1 flex-col transition-all duration-300 ease-in-out min-w-0"
                 style={{

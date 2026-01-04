@@ -3,12 +3,27 @@ import PropTypes from 'prop-types';
 import { Controller } from 'react-hook-form';
 import InputLayout from './InputLayout';
 
+const getAutoComplete = (name, autoComplete) => {
+    if (autoComplete !== undefined) return autoComplete;
+    
+    const nameLower = name?.toLowerCase() || '';
+    if (nameLower.includes('address')) return 'street-address';
+    if (nameLower.includes('city')) return 'address-level2';
+    if (nameLower.includes('state') || nameLower.includes('province')) return 'address-level1';
+    if (nameLower.includes('zip') || nameLower.includes('postal')) return 'postal-code';
+    if (nameLower.includes('country')) return 'country';
+    if (nameLower.includes('comment') || nameLower.includes('message') || nameLower.includes('description')) return 'off';
+    
+    return undefined;
+};
+
 const Textarea = ({
     name,
     placeholder,
     label,
     rows = 4,
     className = '',
+    autoComplete,
     // React Hook Form props (required)
     control,
     rules,
@@ -34,6 +49,8 @@ const Textarea = ({
                 // Ensure value is always a string for controlled inputs (not null or undefined)
                 const textareaValue = field.value ?? '';
 
+                const autoCompleteValue = getAutoComplete(name, autoComplete);
+                
                 return (
                     <InputLayout label={label} name={name} error={currentError}>
                         <textarea
@@ -44,6 +61,7 @@ const Textarea = ({
                             placeholder={placeholder}
                             rows={rows}
                             className={textareaStyles}
+                            autoComplete={autoCompleteValue}
                             {...rest}
                         />
                     </InputLayout>
@@ -59,6 +77,7 @@ Textarea.propTypes = {
     label: PropTypes.string,
     rows: PropTypes.number,
     className: PropTypes.string,
+    autoComplete: PropTypes.string,
     // React Hook Form props (required)
     control: PropTypes.object.isRequired,
     rules: PropTypes.object,

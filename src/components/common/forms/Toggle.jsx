@@ -18,7 +18,7 @@ const Toggle = ({
             rules={rules}
             render={({ field, fieldState }) => (
                 <div className={`flex flex-col gap-1.5 ${className}`}>
-                    <label className="flex items-center justify-between cursor-pointer">
+                    <label htmlFor={name} className="flex items-center justify-between cursor-pointer">
                         {label && (
                             <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
                                 {label}

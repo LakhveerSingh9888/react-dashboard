@@ -56,8 +56,13 @@ export const TopNav = ({ onMenuToggle, onMobileMenuToggle }) => {
             {/* Center - Search (hidden on mobile) */}
             <div className="hidden md:flex flex-1 max-w-md mx-4">
                 <div className="relative w-full">
+                    <label htmlFor="topnav-search" className="sr-only">
+                        Search
+                    </label>
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <Input
+                        id="topnav-search"
+                        name="search"
                         type="search"
                         placeholder="Search..."
                         className="pl-10 bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700"

@@ -4,13 +4,19 @@ import PropTypes from 'prop-types';
 const InputLayout = ({ label, name, error, children, className = '' }) => {
     return (
         <div className={`flex flex-col gap-1.5 ${className}`}>
-            {label && (
+            {label && name && (
                 <label
+                    id={`${name}-label`}
                     htmlFor={name}
                     className="text-sm font-medium text-gray-700 dark:text-gray-200"
                 >
                     {label}
                 </label>
+            )}
+            {label && !name && (
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                    {label}
+                </span>
             )}
             <div className="relative">
                 {children}
