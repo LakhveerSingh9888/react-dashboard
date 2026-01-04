@@ -66,7 +66,7 @@ export const DashboardLayout = () => {
                     marginLeft: getMarginLeft(),
                 }}
             >
-                <header className="h-16 border-b border-gray-200 dark:border-gray-800 flex-shrink-0 bg-white dark:bg-gray-900">
+                <header className="h-16 border-b border-gray-200 dark:border-gray-800 shrink-0 bg-white dark:bg-gray-900">
                     <TopNav onMenuToggle={handleMenuToggle} onMobileMenuToggle={handleMobileMenuToggle} />
                 </header>
                 <main className="flex-1 overflow-auto p-3 sm:p-6 bg-gray-50 dark:bg-gray-950 min-w-0">

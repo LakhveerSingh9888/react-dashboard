@@ -31,51 +31,19 @@ export default defineConfig({
 
   build: {
     sourcemap: false,
-    target: 'baseline-widely-available', // Vite 7 default - supports browsers for 30+ months
-    minify: 'esbuild', // Fastest minifier, built-in
+    target: 'baseline-widely-available', 
+    minify: 'esbuild', 
     cssMinify: true,
     cssCodeSplit: true,
     reportCompressedSize: true,
     chunkSizeWarningLimit: 1000,
-    // Drop console and debugger in production
     esbuild: {
       drop: ['console', 'debugger'],
       legalComments: 'none',
     },
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          // Vendor chunks
-          if (id.includes('node_modules')) {
-            // React and React-DOM
-            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
-              return 'vendor-react';
-            }
-            // Redux ecosystem
-            if (id.includes('redux') || id.includes('@reduxjs')) {
-              return 'vendor-redux';
-            }
-            // Chart library
-            if (id.includes('recharts')) {
-              return 'vendor-charts';
-            }
-            // Icons library
-            if (id.includes('lucide-react')) {
-              return 'vendor-icons';
-            }
-            // Form library
-            if (id.includes('react-hook-form')) {
-              return 'vendor-forms';
-            }
-            // Utilities
-            if (id.includes('lodash') || id.includes('axios') || id.includes('i18next')) {
-              return 'vendor-utils';
-            }
-            // All other node_modules
-            return 'vendor';
-          }
-        },
-        // Optimize chunk file names
+       
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
@@ -92,10 +60,8 @@ export default defineConfig({
         },
       },
     },
-    // Optimize asset inlining
-    assetsInlineLimit: 4096, // 4kb
+    assetsInlineLimit: 4096, 
   },
-  // Optimize dependencies
   optimizeDeps: {
     include: [
       'react',

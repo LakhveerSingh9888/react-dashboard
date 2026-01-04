@@ -1,5 +1,4 @@
-import React, { memo, useMemo } from 'react';
-import ReactECharts from 'echarts-for-react';
+import React, { memo, useMemo, useState, useEffect } from 'react';
 import {
   Card,
   CardContent,
@@ -23,6 +22,14 @@ const SALES_DATA = [
 /* ------------------ Sales Chart ------------------ */
 
 export const SalesChart = memo(function SalesChart() {
+  const [ReactECharts, setReactECharts] = useState(null);
+
+  useEffect(() => {
+    import('echarts-for-react').then((module) => {
+      setReactECharts(() => module.default);
+    });
+  }, []);
+
   const data = useMemo(() => SALES_DATA, []);
 
   const option = useMemo(() => ({
@@ -122,6 +129,22 @@ export const SalesChart = memo(function SalesChart() {
     ],
   }), [data]);
 
+  if (!ReactECharts) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Sales Overview</CardTitle>
+          <CardDescription>Monthly sales performance</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div style={{ height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            Loading chart...
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -143,6 +166,14 @@ export const SalesChart = memo(function SalesChart() {
 /* ------------------ Revenue Chart ------------------ */
 
 export const RevenueChart = memo(function RevenueChart() {
+  const [ReactECharts, setReactECharts] = useState(null);
+
+  useEffect(() => {
+    import('echarts-for-react').then((module) => {
+      setReactECharts(() => module.default);
+    });
+  }, []);
+
   const data = useMemo(() => SALES_DATA, []);
 
   const option = useMemo(() => ({
@@ -241,6 +272,22 @@ export const RevenueChart = memo(function RevenueChart() {
       },
     ],
   }), [data]);
+
+  if (!ReactECharts) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Revenue Trends</CardTitle>
+          <CardDescription>Monthly revenue breakdown</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div style={{ height: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            Loading chart...
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card>
