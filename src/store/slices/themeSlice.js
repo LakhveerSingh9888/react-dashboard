@@ -4,11 +4,22 @@ const getInitialTheme = () => {
     if (typeof window !== 'undefined') {
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
+            // Apply dark class synchronously
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
             return savedTheme;
         }
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
             return 'dark';
         }
+    }
+    // Ensure light mode is set
+    if (typeof window !== 'undefined') {
+        document.documentElement.classList.remove('dark');
     }
     return 'light';
 };
@@ -17,8 +28,14 @@ const getInitialColor = () => {
     if (typeof window !== 'undefined') {
         const savedColor = localStorage.getItem('themeColor');
         if (savedColor) {
+            // Apply theme color synchronously
+            document.documentElement.setAttribute('data-theme-color', savedColor);
             return savedColor;
         }
+    }
+    // Set default theme color
+    if (typeof window !== 'undefined') {
+        document.documentElement.setAttribute('data-theme-color', 'blue');
     }
     return 'blue';
 };

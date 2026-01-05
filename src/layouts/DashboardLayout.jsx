@@ -49,7 +49,7 @@ export const DashboardLayout = () => {
     };
 
     return (
-        <div className={`flex h-screen ${theme === 'dark' ? 'dark' : ''}`}>
+        <div className="flex h-screen">
             <Sidebar 
                 isMobileMenuOpen={isMobileMenuOpen} 
                 setIsMobileMenuOpen={setIsMobileMenuOpen}

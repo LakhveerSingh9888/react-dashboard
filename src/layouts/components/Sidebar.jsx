@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import {
     Home,
     BarChart2,
@@ -507,6 +508,8 @@ export const Sidebar = ({
     isMobile,
     setIsMobile
 }) => {
+    // Subscribe to theme changes to force re-render and ensure immediate theme updates
+    const theme = useSelector((state) => state.theme.mode);
     const [previousDesktopState, setPreviousDesktopState] = useState('full');
     const [expandedItems, setExpandedItems] = useState(new Set());
 
@@ -581,7 +584,7 @@ export const Sidebar = ({
                     className={cn(
                         'fixed inset-y-0 left-0 z-[70] w-64 bg-white dark:bg-gray-900',
                         'border-r border-gray-200 dark:border-gray-800',
-                        'transform transition-transform duration-300 ease-in-out',
+                        'transform transition-all duration-300 ease-in-out',
                         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
                     )}
                 >
@@ -663,7 +666,7 @@ export const Sidebar = ({
         <nav
             className={cn(
                 'fixed inset-y-0 left-0 z-[60] bg-white dark:bg-gray-900',
-                'border-r border-gray-200 dark:border-gray-800 transition-all duration-300 ease-in-out',
+                'border-r border-gray-200 dark:border-gray-800 transition-colors duration-200 ease-in-out',
                 menuState === 'hidden' ? 'w-0 border-r-0' : getSidebarWidth()
             )}
             onMouseEnter={() => setIsHovered(true)}
