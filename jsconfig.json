@@ -3,15 +3,11 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@components/*": ["./src/components/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@layouts/*": ["./src/layouts/*"],
-      "@store/*": ["./src/store/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@router/*": ["./src/router/*"],
-      "@locales/*": ["./src/locales/*"]
+      "@app/*": ["./src/app/*"],
+      "@features/*": ["./src/features/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@assets/*": ["./src/assets/*"]
     },
     "jsx": "react-jsx",
     "moduleResolution": "bundler",

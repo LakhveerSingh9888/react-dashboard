@@ -1,51 +1,48 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { RouterProvider } from 'react-router-dom';
-import { store } from '@store';
-import router from '@router/router';
-import { setupAxiosInterceptors } from '@utils/axios';
-import '@/i18n';
-import '@/index.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
+import { AppProviders } from "@app/providers";
+import router from "@app/router";
+import { store } from "@/shared/store";
+import { setupAxiosInterceptors } from "@shared/utils/axios";
+import "primeicons/primeicons.css";
+import "@styles/theme.css";
 
-// Initialize theme before React renders to prevent flash
 const initializeTheme = () => {
-  if (typeof window !== 'undefined') {
-    const savedTheme = localStorage.getItem('theme');
-    const savedColor = localStorage.getItem('themeColor');
-    
+  if (typeof window !== "undefined") {
+    const savedTheme = localStorage.getItem("theme");
+    const savedColor = localStorage.getItem("themeColor");
+
     if (savedTheme) {
-      if (savedTheme === 'dark') {
-        document.documentElement.classList.add('dark');
+      if (savedTheme === "dark") {
+        document.documentElement.classList.add("dark");
       } else {
-        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.remove("dark");
       }
     } else {
-      // Check system preference
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.classList.add('dark');
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        document.documentElement.classList.add("dark");
       } else {
-        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.remove("dark");
       }
     }
-    
+
     if (savedColor) {
-      document.documentElement.setAttribute('data-theme-color', savedColor);
+      document.documentElement.setAttribute("data-theme-color", savedColor);
     } else {
-      document.documentElement.setAttribute('data-theme-color', 'blue');
+      document.documentElement.setAttribute("data-theme-color", "blue");
     }
   }
 };
 
-// Apply theme immediately
 initializeTheme();
 
 setupAxiosInterceptors(store);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
+    <AppProviders>
       <RouterProvider router={router} />
-    </Provider>
+    </AppProviders>
   </React.StrictMode>,
 );

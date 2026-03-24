@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm uninstall i18next react-i18next)",
+      "Bash(npm install primereact primeicons formik)",
+      "Bash(npm run build)"
+    ]
+  }
+}

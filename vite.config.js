@@ -11,15 +11,11 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@components': path.resolve(__dirname, './src/components'),
-      '@pages': path.resolve(__dirname, './src/pages'),
-      '@utils': path.resolve(__dirname, './src/utils'),
-      '@hooks': path.resolve(__dirname, './src/hooks'),
-      '@layouts': path.resolve(__dirname, './src/layouts'),
-      '@store': path.resolve(__dirname, './src/store'),
+      '@app': path.resolve(__dirname, './src/app'),
+      '@features': path.resolve(__dirname, './src/features'),
+      '@shared': path.resolve(__dirname, './src/shared'),
+      '@styles': path.resolve(__dirname, './src/styles'),
       '@assets': path.resolve(__dirname, './src/assets'),
-      '@router': path.resolve(__dirname, './src/router'),
-      '@locales': path.resolve(__dirname, './src/locales'),
     }
   },
 
@@ -71,6 +67,7 @@ export default defineConfig({
       'react-redux',
       'axios',
       'react-hook-form',
+      'formik',
     ],
     exclude: ['@vitejs/plugin-react'],
   },
