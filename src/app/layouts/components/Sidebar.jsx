@@ -48,6 +48,7 @@ const menuData = [
             },
             { id: 'organization', label: 'Organization', href: '/organization', icon: Building2 },
             { id: 'projects', label: 'Projects', href: '/projects', icon: Folder, badge: '12' },
+            { id: 'form-inputs', label: 'Form Inputs', href: '/form-inputs', icon: Edit },
         ],
     },
     // {

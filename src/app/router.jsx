@@ -9,6 +9,7 @@ const LoginPage = lazy(() => import('@features/auth/pages/LoginPage'));
 const RegisterPage = lazy(() => import('@features/auth/pages/RegisterPage'));
 const DashboardPage = lazy(() => import('@features/dashboard/pages/DashboardPage'));
 const SettingsPage = lazy(() => import('@features/settings/pages/SettingsPage'));
+const FormShowcasePage = lazy(() => import('@features/forms/pages/FormShowcasePage'));
 
 const NotFound = () => (
     <div className="flex items-center justify-center min-h-screen">
@@ -70,6 +71,14 @@ const router = createBrowserRouter([
                         element: (
                             <Suspense fallback={<Spinner />}>
                                 <SettingsPage />
+                            </Suspense>
+                        ),
+                    },
+                    {
+                        path: 'form-inputs',
+                        element: (
+                            <Suspense fallback={<Spinner />}>
+                                <FormShowcasePage />
                             </Suspense>
                         ),
                     },
