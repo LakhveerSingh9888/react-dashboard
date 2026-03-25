@@ -1,9 +1,9 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
@@ -16,19 +16,19 @@ export default defineConfig({
       '@shared': path.resolve(__dirname, './src/shared'),
       '@styles': path.resolve(__dirname, './src/styles'),
       '@assets': path.resolve(__dirname, './src/assets'),
-    }
+    },
   },
 
   server: {
     sourcemapIgnoreList: (sourcePath) => {
-      return sourcePath.includes('node_modules')
-    }
+      return sourcePath.includes('node_modules');
+    },
   },
 
   build: {
     sourcemap: false,
-    target: 'baseline-widely-available', 
-    minify: 'esbuild', 
+    target: 'baseline-widely-available',
+    minify: 'esbuild',
     cssMinify: true,
     cssCodeSplit: true,
     reportCompressedSize: true,
@@ -39,7 +39,6 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-       
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
@@ -56,7 +55,7 @@ export default defineConfig({
         },
       },
     },
-    assetsInlineLimit: 4096, 
+    assetsInlineLimit: 4096,
   },
   optimizeDeps: {
     include: [
@@ -71,4 +70,4 @@ export default defineConfig({
     ],
     exclude: ['@vitejs/plugin-react'],
   },
-})  
+});

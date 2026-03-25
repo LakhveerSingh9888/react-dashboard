@@ -1,8 +1,8 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Moon, Sun } from "lucide-react";
-import { toggleTheme } from "@/shared/store/themeSlice";
-import { Button } from "@shared/components/Button";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Moon, Sun } from 'lucide-react';
+import { toggleTheme } from '@/shared/store/themeSlice';
+import { Button } from '@shared/components/Button';
 
 export const ThemeToggle = () => {
   const dispatch = useDispatch();
@@ -14,13 +14,9 @@ export const ThemeToggle = () => {
       size="sm"
       onClick={() => dispatch(toggleTheme())}
       className="p-2"
-      title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+      title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
     >
-      {theme === "light" ? (
-        <Moon className="h-4 w-4" />
-      ) : (
-        <Sun className="h-4 w-4" />
-      )}
+      {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
     </Button>
   );
 };

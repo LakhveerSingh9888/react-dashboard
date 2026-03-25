@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useLoginMutation, useRegisterMutation, useProfileQuery } from './api';
 
 export const useAuth = () => {
-    return useSelector((state) => state.auth);
+  return useSelector((state) => state.auth);
 };
 
 export const useLogin = () => useLoginMutation();
