@@ -1,4 +1,3 @@
-import React from 'react';
 import { Controller } from 'react-hook-form';
 import { FileUpload } from 'primereact/fileupload';
 import InputLayout from './InputLayout';

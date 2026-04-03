@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@shared/components/Card';
 
 const products = [
@@ -9,7 +9,7 @@ const products = [
   { name: 'USB-C Hub', sales: 478, revenue: '$47,322', growth: '+22%' },
 ];
 
-export const TopProducts = () => {
+export const TopProducts = memo(function TopProducts() {
   return (
     <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl">
       <CardHeader>
@@ -42,4 +42,4 @@ export const TopProducts = () => {
       </CardContent>
     </Card>
   );
-};
+});

@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@shared/components/Card';
 import { TrendingUp, TrendingDown, DollarSign, ShoppingCart, Users, Activity } from 'lucide-react';
 
@@ -41,7 +41,7 @@ const stats = [
   },
 ];
 
-export const OverviewStats = () => {
+export const OverviewStats = memo(function OverviewStats() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {stats.map((stat) => (
@@ -51,7 +51,7 @@ export const OverviewStats = () => {
         >
           <CardContent className="pt-6">
             <div className="flex items-center justify-between mb-3">
-              <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{stat.title}</p>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-300">{stat.title}</p>
               <div className={`p-2 rounded-lg ${stat.bg}`}>
                 <stat.icon className={`h-4 w-4 ${stat.color}`} />
               </div>
@@ -70,4 +70,4 @@ export const OverviewStats = () => {
       ))}
     </div>
   );
-};
+});

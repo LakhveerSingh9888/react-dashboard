@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme, setColor } from '@/shared/store/themeSlice';
 import { logout } from '@features/auth/slice';

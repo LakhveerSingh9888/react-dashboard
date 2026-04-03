@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { Menu, Search, Bell, Settings, User, ChevronDown, Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from 'primereact/button';
@@ -87,17 +87,32 @@ export const TopNav = ({ onMenuToggle, onMobileMenuToggle }) => {
       </div>
 
       <div className="flex items-center space-x-2">
-        <Button text size="small" className="md:hidden p-2 text-gray-600 dark:text-gray-300">
+        <Button
+          text
+          size="small"
+          className="md:hidden p-2 text-gray-600 dark:text-gray-300"
+          aria-label="Search"
+        >
           <Search className="h-4 w-4" />
         </Button>
         <ThemeToggle />
-        <Button text size="small" className="relative p-2 text-gray-600 dark:text-gray-300">
+        <Button
+          text
+          size="small"
+          className="relative p-2 text-gray-600 dark:text-gray-300"
+          aria-label="Notifications"
+        >
           <Bell className="h-4 w-4" />
           <span className="absolute -top-1 -right-1 flex items-center justify-center h-4 w-4 text-xs font-bold bg-red-500 text-white rounded-full">
             3
           </span>
         </Button>
-        <Button text size="small" className="p-2 text-gray-600 dark:text-gray-300">
+        <Button
+          text
+          size="small"
+          className="p-2 text-gray-600 dark:text-gray-300"
+          aria-label="Settings"
+        >
           <Settings className="h-4 w-4" />
         </Button>
 
@@ -106,6 +121,7 @@ export const TopNav = ({ onMenuToggle, onMobileMenuToggle }) => {
           text
           onClick={(e) => userMenuRef.current?.toggle(e)}
           className="flex items-center space-x-2 p-2 text-gray-600 dark:text-gray-300"
+          aria-label="User menu"
         >
           <Avatar
             icon="pi pi-user"

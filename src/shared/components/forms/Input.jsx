@@ -1,7 +1,6 @@
-import React from 'react';
 import { Controller } from 'react-hook-form';
 import { InputText } from 'primereact/inputtext';
-import { classNames } from 'primereact/utils';
+import { cn } from '@shared/utils/cn';
 import InputLayout from './InputLayout';
 
 const FormInput = ({
@@ -30,7 +29,7 @@ const FormInput = ({
             {...field}
             value={field.value ?? ''}
             invalid={!!fieldState.error}
-            className={classNames('w-full', className)}
+            className={cn('w-full', className)}
             {...props}
           />
         </InputLayout>

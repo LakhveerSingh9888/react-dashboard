@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useMemo, useCallback } from 'react';
 
 export const createHandleChange = (setData, options = {}) => {
   const { clearErrors = true } = options;
@@ -61,15 +61,15 @@ export const validateForm = (data, rules) => {
 };
 
 export const useForm = (initialData, validationRules = {}) => {
-  const [data, setData] = React.useState(initialData);
+  const [data, setData] = useState(initialData);
 
-  const handleChange = React.useMemo(() => createHandleChange(setData), []);
+  const handleChange = useMemo(() => createHandleChange(setData), []);
 
-  const setErrors = React.useCallback((errors) => {
+  const setErrors = useCallback((errors) => {
     setData((prev) => ({ ...prev, errors }));
   }, []);
 
-  const handleSubmit = React.useCallback(
+  const handleSubmit = useCallback(
     (onSubmit) => (e) => {
       e.preventDefault();
 
@@ -87,7 +87,7 @@ export const useForm = (initialData, validationRules = {}) => {
     [data, validationRules, setErrors],
   );
 
-  const resetForm = React.useCallback(() => {
+  const resetForm = useCallback(() => {
     setData(initialData);
   }, [initialData]);
 

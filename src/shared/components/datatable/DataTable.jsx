@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Pagination from './Pagination';
 import clsx from 'clsx';
@@ -15,17 +15,6 @@ const DataTable = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [currentSize, setCurrentSize] = useState(pageSize);
   const [selectedRows, setSelectedRows] = useState(new Set());
-
-  // Reset selection when data changes (optional, depends on requirements)
-  // For now, we keep it simple.
-
-  useEffect(() => {
-    if (onPageChange) {
-      // Controlled pagination
-    } else {
-      // Local pagination logic if needed, but for this demo we assume controlled or simple
-    }
-  }, [currentPage, onPageChange]);
 
   const handleSelectAll = (e) => {
     if (e.target.checked) {

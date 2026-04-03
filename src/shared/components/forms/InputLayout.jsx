@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
 const InputLayout = ({ label, name, error, children, className = '' }) => {

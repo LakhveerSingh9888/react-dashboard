@@ -1,6 +1,6 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import { Button as PrimeButton } from 'primereact/button';
-import { classNames } from 'primereact/utils';
+import { cn } from '@shared/utils/cn';
 
 const variantMap = {
   default: {},
@@ -17,7 +17,7 @@ const sizeMap = {
   lg: 'large',
 };
 
-export const Button = React.forwardRef(
+export const Button = forwardRef(
   ({ className, variant = 'default', size = 'md', children, ...props }, ref) => {
     const variantProps = variantMap[variant] || {};
     const primeSize = sizeMap[size];
@@ -26,7 +26,7 @@ export const Button = React.forwardRef(
       <PrimeButton
         ref={ref}
         size={primeSize}
-        className={classNames(className)}
+        className={cn(className)}
         {...variantProps}
         {...props}
       >

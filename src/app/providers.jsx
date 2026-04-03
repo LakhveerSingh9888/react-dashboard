@@ -1,4 +1,3 @@
-import React from 'react';
 import { Provider } from 'react-redux';
 import { PrimeReactProvider } from 'primereact/api';
 import { usePassThrough } from 'primereact/passthrough';

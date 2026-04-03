@@ -1,6 +1,5 @@
-import React from 'react';
 import { Tag } from 'primereact/tag';
-import { classNames } from 'primereact/utils';
+import { cn } from '@shared/utils/cn';
 
 const severityMap = {
   default: null,
@@ -14,12 +13,5 @@ const severityMap = {
 export const Badge = ({ className, variant = 'info', children, value, ...props }) => {
   const severity = severityMap[variant] ?? null;
 
-  return (
-    <Tag
-      severity={severity}
-      value={value ?? children}
-      className={classNames(className)}
-      {...props}
-    />
-  );
+  return <Tag severity={severity} value={value ?? children} className={cn(className)} {...props} />;
 };

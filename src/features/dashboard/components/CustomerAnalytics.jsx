@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@shared/components/Card';
 import { Users, UserPlus, UserCheck, TrendingUp } from 'lucide-react';
 
@@ -41,7 +41,7 @@ const stats = [
   },
 ];
 
-export const CustomerAnalytics = () => {
+export const CustomerAnalytics = memo(function CustomerAnalytics() {
   return (
     <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl">
       <CardHeader>
@@ -55,7 +55,7 @@ export const CustomerAnalytics = () => {
                 <stat.icon className={`h-5 w-5 ${stat.color}`} />
               </div>
               <div>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{stat.label}</p>
+                <p className="text-xs text-gray-600 dark:text-gray-300">{stat.label}</p>
                 <p className="text-sm font-bold text-gray-900 dark:text-white">{stat.value}</p>
                 <span className={`text-xs ${stat.positive ? 'text-green-500' : 'text-red-500'}`}>
                   {stat.change}
@@ -67,4 +67,4 @@ export const CustomerAnalytics = () => {
       </CardContent>
     </Card>
   );
-};
+});

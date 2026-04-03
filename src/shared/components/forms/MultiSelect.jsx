@@ -1,7 +1,6 @@
-import React from 'react';
 import { Controller } from 'react-hook-form';
 import { MultiSelect } from 'primereact/multiselect';
-import { classNames } from 'primereact/utils';
+import { cn } from '@shared/utils/cn';
 import InputLayout from './InputLayout';
 
 const FormMultiSelect = ({
@@ -39,7 +38,7 @@ const FormMultiSelect = ({
             loading={loading}
             display="chip"
             invalid={!!fieldState.error}
-            className={classNames('w-full', className)}
+            className={cn('w-full', className)}
             {...props}
           />
         </InputLayout>

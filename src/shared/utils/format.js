@@ -1,11 +1,6 @@
-import { debounce, capitalize } from 'lodash-es';
-
-export const debouncedLog = debounce((message) => {
-  console.log(message);
-}, 300);
-
 export const formatUserName = (name) => {
-  return capitalize(name);
+  if (!name) return '';
+  return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 };
 
 export const generateId = () => {

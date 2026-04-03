@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@shared/components/Card';
 import { ShoppingCart, DollarSign, Package, TrendingUp } from 'lucide-react';
 
@@ -41,7 +41,7 @@ const activities = [
   },
 ];
 
-export const ActivityFeed = () => {
+export const ActivityFeed = memo(function ActivityFeed() {
   return (
     <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl">
       <CardHeader>
@@ -58,9 +58,9 @@ export const ActivityFeed = () => {
                 <p className="text-sm font-medium text-gray-900 dark:text-white">
                   {activity.title}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{activity.desc}</p>
+                <p className="text-xs text-gray-600 dark:text-gray-300">{activity.desc}</p>
               </div>
-              <span className="text-xs text-gray-400 dark:text-gray-500 flex-shrink-0">
+              <span className="text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">
                 {activity.time}
               </span>
             </div>
@@ -69,4 +69,4 @@ export const ActivityFeed = () => {
       </CardContent>
     </Card>
   );
-};
+});

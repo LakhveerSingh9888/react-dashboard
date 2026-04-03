@@ -1,40 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, memo, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Home,
   BarChart2,
   Building2,
   Folder,
-  Package,
-  ShoppingCart,
-  Users2,
-  Wallet,
-  Receipt,
-  CreditCard,
   FileText,
-  ImageIcon,
-  Search,
-  MessagesSquare,
-  Video,
-  Puzzle,
-  Code,
-  Layers,
-  Database,
   Settings,
   HelpCircle,
   ChevronDown,
   TrendingUp,
   PieChart,
-  Tag,
-  Clock,
-  Truck,
-  Filter,
-  Shield,
-  Edit,
-  Key,
-  TrendingDown,
+  Users2,
   Activity,
-  Play,
+  Edit,
 } from 'lucide-react';
 import { cn } from '@shared/utils/cn';
 import { Badge } from '@shared/components/Badge';
@@ -101,104 +80,9 @@ const menuData = [
       { id: 'form-inputs', label: 'Form Inputs', href: '/form-inputs', icon: Edit },
     ],
   },
-  // {
-  //     id: 'ecommerce',
-  //     label: 'E-commerce',
-  //     items: [
-  //         {
-  //             id: 'products',
-  //             label: 'Products',
-  //             href: '/products',
-  //             icon: Package,
-  //             children: [
-  //                 { id: 'all-products', label: 'All Products', href: '/products/all', icon: Package },
-  //                 { id: 'categories', label: 'Categories', href: '/products/categories', icon: Tag },
-  //                 { id: 'inventory', label: 'Inventory', href: '/products/inventory', icon: Database },
-  //             ],
-  //         },
-  //         {
-  //             id: 'orders',
-  //             label: 'Orders',
-  //             href: '/orders',
-  //             icon: ShoppingCart,
-  //             badge: '5',
-  //             children: [
-  //                 { id: 'all-orders', label: 'All Orders', href: '/orders/all', icon: ShoppingCart },
-  //                 { id: 'pending', label: 'Pending', href: '/orders/pending', icon: Clock, badge: '3' },
-  //                 { id: 'shipped', label: 'Shipped', href: '/orders/shipped', icon: Truck },
-  //             ],
-  //         },
-  //         {
-  //             id: 'customers',
-  //             label: 'Customers',
-  //             href: '/customers',
-  //             icon: Users2,
-  //             children: [
-  //                 { id: 'all-customers', label: 'All Customers', href: '/customers/all', icon: Users2 },
-  //                 { id: 'segments', label: 'Segments', href: '/customers/segments', icon: Filter },
-  //             ],
-  //         },
-  //     ],
-  // },
-  // {
-  //     id: 'finance',
-  //     label: 'Finance',
-  //     items: [
-  //         {
-  //             id: 'transactions',
-  //             label: 'Transactions',
-  //             href: '/transactions',
-  //             icon: Wallet,
-  //             children: [
-  //                 { id: 'all-transactions', label: 'All Transactions', href: '/transactions/all', icon: Wallet },
-  //                 { id: 'income', label: 'Income', href: '/transactions/income', icon: TrendingUp },
-  //                 { id: 'expenses', label: 'Expenses', href: '/transactions/expenses', icon: TrendingDown },
-  //             ],
-  //         },
-  //         { id: 'invoices', label: 'Invoices', href: '/invoices', icon: Receipt, badge: '2' },
-  //         { id: 'payments', label: 'Payments', href: '/payments', icon: CreditCard },
-  //     ],
-  // },
-  // {
-  //     id: 'team',
-  //     label: 'Team & Communication',
-  //     items: [
-  //         {
-  //             id: 'members',
-  //             label: 'Members',
-  //             href: '/members',
-  //             icon: Users2,
-  //             children: [
-  //                 { id: 'all-members', label: 'All Members', href: '/members/all', icon: Users2 },
-  //                 { id: 'roles', label: 'Roles', href: '/members/roles', icon: Shield },
-  //             ],
-  //         },
-  //         { id: 'chat', label: 'Chat', href: '/chat', icon: MessagesSquare, badge: '12' },
-  //         { id: 'meetings', label: 'Meetings', href: '/meetings', icon: Video },
-  //     ],
-  // },
-  // {
-  //     id: 'tools',
-  //     label: 'Tools & Utilities',
-  //     items: [
-  //         { id: 'plugins', label: 'Plugins', href: '/plugins', icon: Puzzle, badge: '8' },
-  //         {
-  //             id: 'api',
-  //             label: 'API',
-  //             href: '/api',
-  //             icon: Code,
-  //             children: [
-  //                 { id: 'documentation', label: 'Documentation', href: '/api/docs', icon: FileText },
-  //                 { id: 'keys', label: 'API Keys', href: '/api/keys', icon: Key },
-  //             ],
-  //         },
-  //         { id: 'integrations', label: 'Integrations', href: '/integrations', icon: Layers },
-  //         { id: 'backup', label: 'Backup & Restore', href: '/backup', icon: Database },
-  //     ],
-  // },
 ];
 
-const NavItem = ({
+const NavItem = memo(function NavItem({
   item,
   level = 0,
   parentId = '',
@@ -207,7 +91,7 @@ const NavItem = ({
   showText,
   isMobile,
   handleNavigation,
-}) => {
+}) {
   const itemId = `${parentId}-${item.id}`;
   const isExpanded = expandedItems.has(itemId);
   const hasChildren = item.children && item.children.length > 0;
@@ -288,7 +172,7 @@ const NavItem = ({
       )}
     </div>
   );
-};
+});
 
 export const Sidebar = ({
   isMobileMenuOpen,
@@ -323,18 +207,27 @@ export const Sidebar = ({
     return () => window.removeEventListener('resize', handleResize);
   }, [menuState, previousDesktopState]);
 
-  const handleNavigation = () => {
+  const handleNavigation = useCallback(() => {
     if (isMobile) setIsMobileMenuOpen(false);
-  };
+  }, [isMobile, setIsMobileMenuOpen]);
 
-  const toggleExpanded = (itemId) => {
+  const toggleExpanded = useCallback((itemId) => {
     setExpandedItems((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(itemId)) newSet.delete(itemId);
       else newSet.add(itemId);
       return newSet;
     });
-  };
+  }, []);
+
+  const settingsItem = useMemo(
+    () => ({ id: 'settings', label: 'Settings', href: '/settings', icon: Settings }),
+    [],
+  );
+  const helpItem = useMemo(
+    () => ({ id: 'help', label: 'Help', href: '/help', icon: HelpCircle }),
+    [],
+  );
 
   const getSidebarWidth = () => {
     if (isMobile) return 'w-64';
@@ -397,7 +290,7 @@ export const Sidebar = ({
       <div className="px-2 py-4 border-t border-gray-200 dark:border-gray-800">
         <div className="space-y-1">
           <NavItem
-            item={{ id: 'settings', label: 'Settings', href: '/settings', icon: Settings }}
+            item={settingsItem}
             expandedItems={expandedItems}
             toggleExpanded={toggleExpanded}
             showText={showText}
@@ -405,7 +298,7 @@ export const Sidebar = ({
             handleNavigation={handleNavigation}
           />
           <NavItem
-            item={{ id: 'help', label: 'Help', href: '/help', icon: HelpCircle }}
+            item={helpItem}
             expandedItems={expandedItems}
             toggleExpanded={toggleExpanded}
             showText={showText}
@@ -424,7 +317,7 @@ export const Sidebar = ({
           className={cn(
             'fixed inset-y-0 left-0 z-[70] w-64 bg-white dark:bg-gray-900',
             'border-r border-gray-200 dark:border-gray-800',
-            'transform transition-all duration-300 ease-in-out',
+            'transform transition-all duration-300 ease-in-out will-change-transform',
             isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full',
           )}
         >

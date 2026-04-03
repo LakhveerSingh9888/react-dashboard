@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from './components/Sidebar';
 import { TopNav } from './components/TopNav';
@@ -9,21 +9,12 @@ export const DashboardLayout = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  const getMarginLeft = () => {
-    if (isMobile) {
-      return '0';
-    }
-    if (menuState === 'hidden') {
-      return '0';
-    }
-    if (menuState === 'collapsed' && isHovered) {
-      return '16rem';
-    }
-    if (menuState === 'collapsed') {
-      return '4rem';
-    }
-    return '16rem';
-  };
+  const mainStyle = useMemo(() => {
+    if (isMobile || menuState === 'hidden') return { marginLeft: '0' };
+    if (menuState === 'collapsed' && isHovered) return { marginLeft: '16rem' };
+    if (menuState === 'collapsed') return { marginLeft: '4rem' };
+    return { marginLeft: '16rem' };
+  }, [isMobile, menuState, isHovered]);
 
   const handleMenuToggle = useCallback(() => {
     setMenuState((prev) => {
@@ -40,9 +31,9 @@ export const DashboardLayout = () => {
     });
   }, []);
 
-  const handleMobileMenuToggle = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const handleMobileMenuToggle = useCallback(() => {
+    setIsMobileMenuOpen((prev) => !prev);
+  }, []);
 
   return (
     <div className="flex h-screen">
@@ -57,8 +48,8 @@ export const DashboardLayout = () => {
         setIsMobile={setIsMobile}
       />
       <div
-        className="w-full flex flex-1 flex-col transition-all duration-300 ease-in-out min-w-0"
-        style={{ marginLeft: getMarginLeft() }}
+        className="w-full flex flex-1 flex-col transition-[margin-left] duration-300 ease-in-out min-w-0"
+        style={mainStyle}
       >
         <header className="h-16 border-b border-gray-200 dark:border-gray-800 shrink-0 bg-white dark:bg-gray-900">
           <TopNav onMenuToggle={handleMenuToggle} onMobileMenuToggle={handleMobileMenuToggle} />

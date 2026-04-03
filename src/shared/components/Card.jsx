@@ -1,4 +1,3 @@
-import React from 'react';
 import { cn } from '@shared/utils/cn';
 
 export const Card = ({ className, children, ...props }) => {

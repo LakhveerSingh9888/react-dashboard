@@ -1,49 +1,87 @@
-import React from 'react';
+import { lazy, Suspense, useState, useEffect } from 'react';
+import { AutoSkeleton } from '@shared/components/skeleton';
 import { OverviewStats } from './OverviewStats';
-import { SalesChart, RevenueChart } from './SalesChart';
-import { RecentOrders } from './RecentOrders';
-import { TopProducts } from './TopProducts';
-import { CustomerAnalytics } from './CustomerAnalytics';
-import { ActivityFeed } from './ActivityFeed';
-import { FinancialWidgets } from './FinancialWidgets';
+
+const SalesChart = lazy(() => import('./SalesChart').then((m) => ({ default: m.SalesChart })));
+const RevenueChart = lazy(() => import('./SalesChart').then((m) => ({ default: m.RevenueChart })));
+const RecentOrders = lazy(() =>
+  import('./RecentOrders').then((m) => ({ default: m.RecentOrders })),
+);
+const TopProducts = lazy(() => import('./TopProducts').then((m) => ({ default: m.TopProducts })));
+const CustomerAnalytics = lazy(() =>
+  import('./CustomerAnalytics').then((m) => ({ default: m.CustomerAnalytics })),
+);
+const ActivityFeed = lazy(() =>
+  import('./ActivityFeed').then((m) => ({ default: m.ActivityFeed })),
+);
+const FinancialWidgets = lazy(() =>
+  import('./FinancialWidgets').then((m) => ({ default: m.FinancialWidgets })),
+);
+
+const skeletonConfig = { animation: 'shimmer' };
+
+function useLazySkeleton() {
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+  return !loaded;
+}
+
+const LazyWidget = ({ children }) => {
+  const loading = useLazySkeleton();
+  return (
+    <AutoSkeleton loading={loading} config={skeletonConfig}>
+      <Suspense fallback={null}>{children}</Suspense>
+    </AutoSkeleton>
+  );
+};
 
 export const DashboardContent = () => {
   return (
     <div className="space-y-4 sm:space-y-6 w-full min-w-0">
-      {/* Overview Stats */}
       <OverviewStats />
 
-      {/* Charts Row - Stack on mobile, side by side on desktop */}
       <div className="grid gap-4 sm:gap-6 grid-cols-1 xl:grid-cols-2">
         <div className="w-full min-w-0">
-          <SalesChart />
+          <LazyWidget>
+            <SalesChart />
+          </LazyWidget>
         </div>
         <div className="w-full min-w-0">
-          <RevenueChart />
+          <LazyWidget>
+            <RevenueChart />
+          </LazyWidget>
         </div>
       </div>
 
-      {/* Main Content Grid - Stack on mobile, responsive grid on larger screens */}
       <div className="grid gap-4 sm:gap-6 grid-cols-1 lg:grid-cols-3">
-        {/* Left Column - Full width on mobile, 2/3 width on desktop */}
         <div className="lg:col-span-2 space-y-4 sm:space-y-6 w-full min-w-0">
-          <RecentOrders />
-          <TopProducts />
+          <LazyWidget>
+            <RecentOrders />
+          </LazyWidget>
+          <LazyWidget>
+            <TopProducts />
+          </LazyWidget>
         </div>
 
-        {/* Right Column - Full width on mobile, 1/3 width on desktop */}
         <div className="space-y-4 sm:space-y-6 w-full min-w-0">
-          <CustomerAnalytics />
-          <ActivityFeed />
+          <LazyWidget>
+            <CustomerAnalytics />
+          </LazyWidget>
+          <LazyWidget>
+            <ActivityFeed />
+          </LazyWidget>
         </div>
       </div>
 
-      {/* Financial Overview Section */}
       <div className="mt-6 sm:mt-8">
         <h2 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 px-1">
           Financial Overview
         </h2>
-        <FinancialWidgets />
+        <LazyWidget>
+          <FinancialWidgets />
+        </LazyWidget>
       </div>
     </div>
   );

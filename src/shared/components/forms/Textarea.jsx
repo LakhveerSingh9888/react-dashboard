@@ -1,7 +1,6 @@
-import React from 'react';
 import { Controller } from 'react-hook-form';
 import { InputTextarea } from 'primereact/inputtextarea';
-import { classNames } from 'primereact/utils';
+import { cn } from '@shared/utils/cn';
 import InputLayout from './InputLayout';
 
 const FormTextarea = ({
@@ -33,7 +32,7 @@ const FormTextarea = ({
             rows={rows}
             autoResize
             invalid={!!fieldState.error}
-            className={classNames('w-full', className)}
+            className={cn('w-full', className)}
             {...props}
           />
         </InputLayout>

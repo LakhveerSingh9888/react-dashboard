@@ -1,17 +1,11 @@
-import React, { useRef } from 'react';
+import { cloneElement, useRef } from 'react';
 import { Menu } from 'primereact/menu';
-import { classNames } from 'primereact/utils';
-
-// Simplified DropdownMenu built on PrimeReact Menu (popup mode).
-// Usage:
-//   <DropdownMenu model={items} trigger={<button>Open</button>} align="end" />
-//
-// For composable usage in TopNav, use PrimeReact Menu directly with a ref.
+import { cn } from '@shared/utils/cn';
 
 export const DropdownMenu = ({ model = [], trigger, className }) => {
   const menuRef = useRef(null);
 
-  const triggerEl = React.cloneElement(trigger, {
+  const triggerEl = cloneElement(trigger, {
     onClick: (e) => {
       menuRef.current?.toggle(e);
       trigger.props.onClick?.(e);
@@ -21,15 +15,14 @@ export const DropdownMenu = ({ model = [], trigger, className }) => {
   return (
     <>
       {triggerEl}
-      <Menu ref={menuRef} model={model} popup className={classNames(className)} />
+      <Menu ref={menuRef} model={model} popup className={cn(className)} />
     </>
   );
 };
 
-// Re-export sub-components for any existing composable usage
 export const DropdownMenuTrigger = ({ children, onClick, asChild }) => {
   if (asChild) {
-    return React.cloneElement(children, {
+    return cloneElement(children, {
       onClick: (e) => {
         onClick?.(e);
         children.props.onClick?.(e);
@@ -44,7 +37,7 @@ export const DropdownMenuContent = ({ children, isOpen, align = 'end', className
   const alignClass = { start: 'left-0', center: 'left-1/2 -translate-x-1/2', end: 'right-0' };
   return (
     <div
-      className={classNames(
+      className={cn(
         'absolute z-50 mt-2 min-w-[8rem] overflow-hidden rounded-md border border-gray-200 bg-white p-1 shadow-md dark:border-gray-800 dark:bg-gray-900',
         alignClass[align],
         className,
@@ -56,19 +49,14 @@ export const DropdownMenuContent = ({ children, isOpen, align = 'end', className
 };
 
 export const DropdownMenuLabel = ({ children, className }) => (
-  <div
-    className={classNames(
-      'px-2 py-1.5 text-sm font-semibold text-gray-900 dark:text-white',
-      className,
-    )}
-  >
+  <div className={cn('px-2 py-1.5 text-sm font-semibold text-gray-900 dark:text-white', className)}>
     {children}
   </div>
 );
 
 export const DropdownMenuItem = ({ children, className, onClick, ...props }) => (
   <div
-    className={classNames(
+    className={cn(
       'relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm',
       'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-900 dark:text-white',
       className,
@@ -81,5 +69,5 @@ export const DropdownMenuItem = ({ children, className, onClick, ...props }) => 
 );
 
 export const DropdownMenuSeparator = ({ className }) => (
-  <div className={classNames('-mx-1 my-1 h-px bg-gray-200 dark:bg-gray-800', className)} />
+  <div className={cn('-mx-1 my-1 h-px bg-gray-200 dark:bg-gray-800', className)} />
 );

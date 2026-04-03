@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@shared/components/Card';
 import { Badge } from '@shared/components/Badge';
 import { MoreVertical } from 'lucide-react';
@@ -48,12 +48,15 @@ const statusVariant = {
   cancelled: 'danger',
 };
 
-export const RecentOrders = () => {
+export const RecentOrders = memo(function RecentOrders() {
   return (
     <Card className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl">
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-gray-900 dark:text-white">Recent Orders</CardTitle>
-        <button className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+        <button
+          className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+          aria-label="More options"
+        >
           <MoreVertical className="h-5 w-5" />
         </button>
       </CardHeader>
@@ -95,4 +98,4 @@ export const RecentOrders = () => {
       </CardContent>
     </Card>
   );
-};
+});

@@ -15,8 +15,8 @@ export const useLocalStorage = (key, initialValue) => {
       const valueToStore = value instanceof Function ? value(storedValue) : value;
       setStoredValue(valueToStore);
       window.localStorage.setItem(key, JSON.stringify(valueToStore));
-    } catch (error) {
-      console.error(error);
+    } catch {
+      // localStorage may be unavailable (private browsing, quota exceeded)
     }
   };
 
@@ -24,8 +24,8 @@ export const useLocalStorage = (key, initialValue) => {
     try {
       window.localStorage.removeItem(key);
       setStoredValue(initialValue);
-    } catch (error) {
-      console.error(error);
+    } catch {
+      // localStorage may be unavailable
     }
   };
 
